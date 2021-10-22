@@ -1,0 +1,2 @@
+FLASK_APP=logbook
+FLASK_ENV=development
