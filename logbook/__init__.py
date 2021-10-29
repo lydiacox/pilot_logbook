@@ -21,21 +21,22 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"postgres+psycopg2://{db_user}:{db_pass
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
 
 db = SQLAlchemy(app)
+print(db)
 
-class Pilot(db.Model):
-    __tablename__ = "pilots"
-    pilot_id = db.Column(db.Integer, primary_key=True)
-    pilot_name = db.Column(db.String(100), nullable=False)
+# class Pilot(db.Model):
+#     __tablename__ = "pilots"
+#     pilot_id = db.Column(db.Integer, primary_key=True)
+#     pilot_name = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, pilot_id):
-        self.pilot_id = pilot_id
+#     def __init__(self, pilot_id):
+#         self.pilot_id = pilot_id
 
-    @property
-    def serialize(self):
-        return {
-            "pilot_id": self.pilot_id,
-            "pilot_name": self.pilot_name
-        }
+#     @property
+#     def serialize(self):
+#         return {
+#             "pilot_id": self.pilot_id,
+#             "pilot_name": self.pilot_name
+#         }
 
 @app.route('/')
 def hello_world():
