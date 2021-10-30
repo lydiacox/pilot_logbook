@@ -94,3 +94,4 @@ def calculate(f_num, operator, s_num):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
