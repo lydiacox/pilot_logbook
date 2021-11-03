@@ -1,2 +1,2 @@
-FLASK_APP=logbook
+FLASK_APP=logbook/main:create_app
 FLASK_ENV=development
