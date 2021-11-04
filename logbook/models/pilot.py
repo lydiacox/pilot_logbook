@@ -7,10 +7,4 @@ class Pilot(db.Model):
 
         def __init__(self, pilot_id):
             self.pilot_id = pilot_id
-
-        @property
-        def serialize(self):
-            return {
-                "pilot_id": self.pilot_id,
-                "pilot_name": self.pilot_name
-            }
+            
