@@ -24,6 +24,6 @@ def create_app():
 
     @app.errorhandler(ValidationError)
     def handle_bad_request(error):
-        return (jsonify(error.message), 400)
+        return (jsonify(error.messages), 400)
 
     return app
