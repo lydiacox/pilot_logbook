@@ -19,7 +19,7 @@ def get_pilots():
 
 @pilots.route("/pilots/new/", methods=["POST"])
 def create_pilot():
-    new_pilot=pilots_schema.load(request.json)
+    new_pilot=pilot_schema.load(request.json)
     db.session.add(new_pilot)
     db.session.commit()
     return jsonify(pilot_schema.dump(new_pilot))

@@ -22,3 +22,15 @@ class TestPilots(unittest.TestCase):
     def test_create_bad_course(self):
         response = self.client.post("/pilots/", json={"pilot_name": ""})
         self.assertEqual(response.status_code, 400)
+
+    def test_create_good_pilots(self):
+        response = self.client.post("/pilots/", json={"pilot_name": "testpilot"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["pilot_name"], "testpilot")
+        self.client.delete(f"/pilots/{response.get_json()['pilot_id']}/")
+    
+    def test_delete_pilot(self):
+        response1 = self.client.post("/pilots/", json={"pilot_name": "testpilot"})
+        id = response1.get_json()["pilot_id"]
+        response = self.client.delete(f"/pilots/{id}/")
+        self.assertEqual(response.status_code, 200)
