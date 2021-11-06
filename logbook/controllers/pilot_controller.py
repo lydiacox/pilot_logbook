@@ -24,12 +24,12 @@ def create_pilot():
     db.session.commit()
     return jsonify(pilot_schema.dump(new_pilot))
 
-@pilots.route("/pilots/<int:id>", methods=["GET"])
+@pilots.route("/pilots/<int:id>/", methods=["GET"])
 def get_pilot(id):
     pilot = Pilot.query.get_or_404(id)
     return jsonify(pilot_schema.dump(pilot))
 
-@pilots.route("/pilots/<int:id>", methods=["PUT", "PATCH"])
+@pilots.route("/pilots/<int:id>/", methods=["PUT", "PATCH"])
 def update_pilot(id):
     pilot = Pilot.query.filter_by(pilot_id=id)
     updated_fields = pilot_schema.dump(request.json)
@@ -44,16 +44,3 @@ def delete_pilot(id):
     db.session.delete(pilot)
     db.session.commit()
     return jsonify(pilot_schema.dump(pilot))
-
-if __name__ == '__main__':
-    pass
-
-@pilots.route('/pilots/<int:pilot_id>/')
-def get_specific_pilots(pilot_id):
-    return f'This will be a page displaying information about pilot {pilot_id}.'
-
-@pilots.route('/calc/<int:f_num>/<string:operator>/<int:s_num>')
-def calculate(f_num, operator, s_num):
-    if operator in ['+', '-', '*', '/']:
-        return f"{eval(f'{f_num}{operator}{s_num}')}"
-    return "Please enter a valid calculation"
