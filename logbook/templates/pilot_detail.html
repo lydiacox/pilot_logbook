@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>{{ page_data.pilot.pilot_name }}</h2>
+    <p>Pilot ID: {{ page_data.pilot.pilot_id }}</p>
+
+    <form action="/pilots/{{ page_data.pilot.pilot_id }}/", method="POST">
+        <input type="text" name="pilot_name" placeholder="Pilot Name..."/>
+                <button>Update</button>
+    </form>
+
+{% endblock %}
