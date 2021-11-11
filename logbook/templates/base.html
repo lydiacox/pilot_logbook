@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Pilot Logbook
+        </title>
+    </head>
+    <body>
+        <header>
+            <h1>{{ page_data.page_title }}</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/pilots/">Pilots</a>
+            </nav>
+        </header>
+        <div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <footer>Thanks for visiting!</footer>
+    </body>
+</html>
