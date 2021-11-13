@@ -58,7 +58,7 @@ def update_pilot(id):
     return render_template("pilot_detail.html", page_data=data)
 
 # A DELETE method
-@pilots.route("/pilots/<int:id>/", methods=["POST"])
+@pilots.route("/pilots/<int:id>/delete/", methods=["POST"])
 def delete_pilot(id):
     pilot = Pilot.query.get_or_404(id)
     db.session.delete(pilot)
