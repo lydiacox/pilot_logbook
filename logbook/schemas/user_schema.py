@@ -22,3 +22,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         if len(password)>6:
             return generate_password_hash(password, method='sha256')
         raise exceptions.ValidationError("Password must be at least 6 characters.")
+
+user_schema = UserSchema()
+multi_user_schema = UserSchema(many=True)
+user_update_schema = UserSchema(partial=True)

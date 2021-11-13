@@ -1,3 +1,5 @@
 from controllers.pilot_controller import pilots
+from controllers.user_controller import users
 
-registerable_controllers = [pilots]
+# Place that registers the controllers
+registerable_controllers = [pilots, users]
