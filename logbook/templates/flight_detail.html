@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>{{ page_data.flight.flight_no }}</h2>
+    <p>Flight ID: {{ page_data.flight.flight_id }}</p>
+
+    <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">
+        <input type="text" number="flight_no" placeholder="Flight number..."/>
+                <button>Update</button>
+    </form>
+
+    <form action = "/flights/{{ page_data.flight.flight_id }}/delete/", method="POST">
+        <button>DELETE FLIGHT</button>
+    </form>
+
+{% endblock %}

@@ -50,6 +50,6 @@ def log_in():
     user = User.query.filter_by(email=request.form["email"]).first()
     if user and user.check_password(password=request.form["password"]):
         login_user(user)
-        return redirect(url_for("pilots.get_pilots"))
+        return redirect(url_for("flights.get_flights"))
 
     abort(401, "Login unsuccessful. Did you supply the correct username and password?")
