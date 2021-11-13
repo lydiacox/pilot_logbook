@@ -1,7 +1,7 @@
 from enum import auto
 
 from marshmallow import validate
-from logbook.schemas.pilot_schema import PilotSchema
+from logbook.schemas.flight_schema import FlightSchema
 from main import ma
 from models.flights import Flight
 from marshmallow_sqlalchemy import auto_field
