@@ -3,6 +3,9 @@
 
     <h2>{{ page_data.flight.flight_no }}</h2>
     <p>Flight ID: {{ page_data.flight.flight_id }}</p>
+    <p>Aircraft Type: {{ page_data.flight.aircraft_type }}</p>
+    <p>Aircraft Call Letters: {{ page_data.flight.aircraft_call_letters }}</p>
+    <p>Date: {{ page_data.flight.flight_date }}</p>
 
     <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">
         <input type="text" number="flight_no" placeholder="Flight number..."/>

@@ -23,7 +23,12 @@ class User(UserMixin, db.Model):
         nullable=False
     )
 
+    is_admin = db.Column(
+        db.Boolean(),
+        nullable=False,
+        default=False
+    )
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
     

@@ -42,6 +42,7 @@ def get_flight(id):
         "page_title": "Flight Detail",
         "flight": flight_schema.dump(flight)
     }
+    print(data)
     return render_template("flight_detail.html", page_data=data)
 
 # A POST route to update flight info
