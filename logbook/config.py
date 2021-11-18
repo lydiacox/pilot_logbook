@@ -19,6 +19,9 @@ class Config(object):
         return f"postgresql+psycopg2://{uri_dict['DB_USER']}:{uri_dict['DB_PASS']}@{uri_dict['DB_DOMAIN']}/{uri_dict['DB_NAME']}"
 
 class DevelopmentConfig(Config):
+    # Uncomment the line below  to see the SQL commands that are 
+    # being run in the background
+    # SQLALCHEMY_ECHO = True
     DEBUG = True
 
 class ProductionConfig(Config):

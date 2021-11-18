@@ -28,6 +28,7 @@ def get_flights():
 #The POST route endpoint
 @flights.route("/flights/", methods=["POST"])
 def create_flight():
+    print(request.form)
     new_flight=flight_schema.load(request.form)
     db.session.add(new_flight)
     db.session.commit()
@@ -58,7 +59,7 @@ def update_flight(id):
     return render_template("flight_detail", page_data=data)
 
 # A DELETE method
-@flights.route("/flights/delete/", methods=["POST"])
+@flights.route("/flights/<int:id>/delete/", methods=["POST"])
 def delete_flight(id):
     flight = Flight.query.get_or_404(id)
     db.session.delete(flight)
