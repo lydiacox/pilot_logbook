@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for, abort
-from sqlalchemy.orm import query
 from main import db, lm
 from models.users import User
 from schemas.user_schema import user_schema, multi_user_schema, user_update_schema
@@ -11,6 +10,7 @@ def load_user(user):
     return User.query.get(user)
 
 @lm.unauthorized_handler
+# Have to supply when we're setting up an authorisation system
 def unauthorised():
     return redirect("/users/login")
 
@@ -53,3 +53,31 @@ def log_in():
         return redirect(url_for("flights.get_flights"))
 
     abort(401, "Login unsuccessful. Did you supply the correct username and password?")
+
+@users.route("/users/account/", methods=["GET", "POST"])
+# This decorator makes it impossible to access if you're not logged in.
+# If you're not logged in, will redirect you to the login page.
+@login_required
+def user_detail():
+    if request.method == "GET":
+        data = {"page_title": "Account Details"}
+        return render_template("user_details.html", page_data = data)
+
+    user = User.query.filter_by(id = current_user.id)
+    updated_fields = user_schema.dump(request.form)
+    # Validation happens when the schema loads, but not schema dumps, so we need to specify
+    # that the fields should be validated
+    errors = user_update_schema.validate(updated_fields)
+
+    if errors:
+        raise ValidationError(message = errors)
+
+    user.update(updated_fields)
+    db.session.commit()
+    return redirect(url_for("users.get_users"))
+
+@users.route("/users/logout/", methods=["POST"])
+@login_required
+def log_out():
+    logout_user()
+    return redirect(url_for("users.log_in"))
