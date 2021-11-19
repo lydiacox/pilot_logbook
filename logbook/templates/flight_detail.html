@@ -10,16 +10,11 @@
     <br><br>
     <h3>Update Flight Info</h3>
     <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">
-        <input type="text" number="flight_no" placeholder="Flight number..."/>
         <input type="text" number="aircraft_type" placeholder="Aircraft type..."/>
                 <button>Update</button>
     </form>
     <br><br>
-    <h3>Update Image:</h3>
-    <form action="/flights/{{ page_data.flight.flight_id }}/image/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <input type="submit">
-    </form>
+
     <form action = "/flights/{{ page_data.flight.flight_id }}/delete/", method="POST">
         <button>DELETE FLIGHT</button>
     </form>

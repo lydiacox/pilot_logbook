@@ -1,11 +1,9 @@
-from enum import unique
-
-from marshmallow.fields import Boolean
 from main import db
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 
 class User(UserMixin, db.Model):
+    # tablename specifies the name of the table
     __tablename__ = "flasklogin-users"
     id = db.Column(
         db.Integer,
@@ -30,18 +28,23 @@ class User(UserMixin, db.Model):
         nullable=False,
         server_default="False"
     )
-    
+
+    is_superadmin = db.Column(
+        db.Boolean(),
+        nullable=False,
+        server_default="False"
+    )
+        
     has_image = db.Column(
         db.Boolean(),
+        nullable=False,
         server_default="False"
     )
 
-    # is_super_admin = db.Column(
-    #     db.Boolean(),
-    #     nullable=False,
-    #     server_default="False"
-    # )
-
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    @property
+    def image_filename(self):
+        return f"user_images/{self.user_id}.png"
     

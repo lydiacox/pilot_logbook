@@ -43,9 +43,9 @@ def get_flight(id):
     s3_client=boto3.client("s3")
     bucket_name = current_app.config["AWS_S3_BUCKET"]
     image_url = s3_client.generate_presigned_url(
-        'get_object',
+        "get_object",
         Params={
-            'Bucket': bucket_name,
+            "Bucket": bucket_name,
             "Key": flight.image_filename
         },
         ExpiresIn=100
@@ -54,6 +54,7 @@ def get_flight(id):
     data = {
         "page_title": "Flight Detail",
         "flight": flight_schema.dump(flight),
+        "image": image_url
     }
     print(data)
     return render_template("flight_detail.html", page_data=data)

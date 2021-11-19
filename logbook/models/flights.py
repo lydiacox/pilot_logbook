@@ -3,7 +3,10 @@ from main import db
 # Tells the ORM what tables should exist in teh database
 # Allows us to retrieve info from those tables
 class Flight(db.Model):
+    # tablename attribute specifies what the name of the table should be
     __tablename__ = "flights"
+
+    # The columns in the table
     flight_id = db.Column(db.Integer, primary_key=True)
     aircraft_type = db.Column(db.String(20), server_default="Wright Flyer")
     aircraft_rego = db.Column(db.String(10), server_default="AAAA")
@@ -28,6 +31,5 @@ class Flight(db.Model):
     instrument_in_flight = db.Column(db.Float)
     instrument_ground = db.Column(db.Float)
 
-    @property
-    def image_filename(self):
-        return f"flight_images/{self.flight_id}.png"
+    # @property
+    # Write decorators that add up the columns above into sensible groups
