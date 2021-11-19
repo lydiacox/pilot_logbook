@@ -12,5 +12,12 @@
             <button>Update</button>
 
         </form>
+        <h3>Update Image:</h3>
+        <form action="/users/account/image/" method="POST" enctype="multipart/form-data">
+                <input type="file" name="image">
+                <input type="submit">
+            </form>
+        </form>
+<!-- dont forget encryption type -->
     </div>
 {% endblock %}

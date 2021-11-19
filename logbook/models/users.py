@@ -1,4 +1,6 @@
 from enum import unique
+
+from marshmallow.fields import Boolean
 from main import db
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
@@ -26,6 +28,11 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(
         db.Boolean(),
         nullable=False,
+        server_default="False"
+    )
+    
+    has_image = db.Column(
+        db.Boolean(),
         server_default="False"
     )
 
