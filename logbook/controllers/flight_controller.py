@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, current_app
 from main import db
 from models.flights import Flight
 from schemas.flight_schema import flight_schema, multi_flight_schema
+import boto3
 
 flights = Blueprint('flights', __name__)
 
@@ -38,9 +39,21 @@ def create_flight():
 @flights.route("/flights/<int:id>/", methods=["GET"])
 def get_flight(id):
     flight = Flight.query.get_or_404(id)
+
+    s3_client=boto3.client("s3")
+    bucket_name = current_app.config["AWS_S3_BUCKET"]
+    image_url = s3_client.generate_presigned_url(
+        'get_object',
+        Params={
+            'Bucket': bucket_name,
+            "Key": flight.image_filename
+        },
+        ExpiresIn=100
+    )
+
     data = {
         "page_title": "Flight Detail",
-        "flight": flight_schema.dump(flight)
+        "flight": flight_schema.dump(flight),
     }
     print(data)
     return render_template("flight_detail.html", page_data=data)

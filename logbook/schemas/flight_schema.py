@@ -1,4 +1,3 @@
-from marshmallow import validate
 from main import ma
 from models.flights import Flight
 from marshmallow_sqlalchemy import auto_field
