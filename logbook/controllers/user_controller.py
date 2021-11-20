@@ -1,9 +1,10 @@
-from flask import Blueprint, request, render_template, redirect, url_for, abort
+from flask import Blueprint, request, render_template, redirect, url_for, abort, current_app
 from main import db, lm
 from models.users import User
 from schemas.user_schema import user_schema, multi_user_schema, user_update_schema
 from flask_login import login_user, logout_user, login_required, current_user
 from marshmallow import ValidationError
+import boto3
 
 @lm.user_loader
 def load_user(user):
@@ -59,11 +60,24 @@ def log_in():
 # If you're not logged in, will redirect you to the login page.
 @login_required
 def user_detail():
-    if request.method == "GET":
-        data = {"page_title": "Account Details"}
-        return render_template("user_details.html", page_data = data)
 
     user = User.query.filter_by(id = current_user.id)
+
+    s3_client=boto3.client("s3")
+    bucket_name=current_app.config["AWS_S3_BUCKET"]
+    image_url = s3_client.generate_presigned_url(
+        "get_object",
+        Params={
+            "Bucket": bucket_name,
+            "Key": user.image_filename
+        },
+        ExpiresIn=100
+    )
+
+    if request.method == "GET":
+        data = {"page_title": "Account Details", "image": image_url}
+        return render_template("user_details.html", page_data = data)
+
     updated_fields = user_schema.dump(request.form)
     # Validation happens when the schema loads, but not schema dumps, so we need to specify
     # that the fields should be validated

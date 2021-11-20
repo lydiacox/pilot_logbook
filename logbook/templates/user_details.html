@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+    <h2>{{ page_data.user.name }}</h2>
+    <img src="{{ page_data.image }}" style="width: 250px">
     <div>
         <form action="/users/account/" method="POST">
 
