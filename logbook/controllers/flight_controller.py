@@ -29,7 +29,6 @@ def get_flights():
 #The POST route endpoint
 @flights.route("/flights/", methods=["POST"])
 def create_flight():
-    print(request.form)
     new_flight=flight_schema.load(request.form)
     db.session.add(new_flight)
     db.session.commit()
@@ -40,23 +39,10 @@ def create_flight():
 def get_flight(id):
     flight = Flight.query.get_or_404(id)
 
-    s3_client=boto3.client("s3")
-    bucket_name = current_app.config["AWS_S3_BUCKET"]
-    image_url = s3_client.generate_presigned_url(
-        "get_object",
-        Params={
-            "Bucket": bucket_name,
-            "Key": flight.image_filename
-        },
-        ExpiresIn=100
-    )
-
     data = {
         "page_title": "Flight Detail",
         "flight": flight_schema.dump(flight),
-        "image": image_url
     }
-    print(data)
     return render_template("flight_detail.html", page_data=data)
 
 # A POST route to update flight info

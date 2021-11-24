@@ -61,8 +61,8 @@ def log_in():
 @login_required
 def user_detail():
 
-    user = User.query.filter_by(id = current_user.id)
-
+    user = User.query.filter_by(id = current_user.id).first()
+    print(user)
     s3_client=boto3.client("s3")
     bucket_name=current_app.config["AWS_S3_BUCKET"]
     image_url = s3_client.generate_presigned_url(

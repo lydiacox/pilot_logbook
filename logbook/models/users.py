@@ -46,5 +46,5 @@ class User(UserMixin, db.Model):
 
     @property
     def image_filename(self):
-        return f"user_images/{self.user_id}.png"
+        return f"user_images/{self.id}.png"
     

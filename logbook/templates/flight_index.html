@@ -5,10 +5,14 @@
         <h2>New Flight</h2>
         <div>
             <form action="/flights/" method="POST">
-                <input type="text" name="flight_no" placeholder="Flight number..."/>
                 <input type="text" name="aircraft_type" placeholder="Aircraft type..."/>
-                <input type="text" name="aircraft_call_letters" placeholder="Call letters"/>
-                <input type="date" name="flight_date" placeholder="Date of flight"/>    
+                <input type="text" name="aircraft_rego" placeholder="Call letters..."/>
+                <input type="date" name="flight_date" placeholder="Date of flight"/>
+                <input type="text" name="pilot_in_command" placeholder="Pilot in command..."/>
+                <input type="text" name="other_crew" placeholder="Other crew..."/>
+                <input type="text" name="details" placeholder="Details..."/>
+                <input type="number" step="0.01" name="single_engine_icus_day" placeholder="Single Engine ICUS Day..."/>
+                <input type="number" step="0.01" name="single_engine_icus_night" placeholder="Single Engine ICUS Night..."/>
                 <button>Create</button>
             </form>
         </div>
@@ -16,6 +20,6 @@
     <br/>
     <h2>Flight List</h2>
     {% for flight in page_data.flights %}
-        <a href="/flights/{{ flight.flight_id }}/">{{ flight.flight_no}}</a></br>
+        <a href="/flights/{{ flight.flight_id }}/">{{ flight.flight_id}}</a></br>
     {% endfor %}
 {% endblock %}

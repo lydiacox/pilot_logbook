@@ -14,7 +14,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     email = auto_field(required=True, validate=validate.Email())
     is_admin = auto_field(required=False, default=False)
     is_superadmin = auto_field(required=False, default=False)
-    has_image = auto_field(required=True, default=False)
+    has_image = auto_field(default=False)
     password = fields.Method(
         required=True,
         load_only=True,
