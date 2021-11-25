@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, render_template, redirect, url_fo
 from main import db
 from models.flights import Flight
 from schemas.flight_schema import flight_schema, multi_flight_schema
+from flask_login import login_required, current_user
 import boto3
 
 flights = Blueprint('flights', __name__)
@@ -19,6 +20,7 @@ def home_page():
 
 # The GET route endpoint
 @flights.route('/flights/', methods=["GET"])
+@login_required
 def get_flights():
     data = {
         "page_title": "Flight Index",
@@ -28,14 +30,18 @@ def get_flights():
 
 #The POST route endpoint
 @flights.route("/flights/", methods=["POST"])
+@login_required
 def create_flight():
     new_flight=flight_schema.load(request.form)
+    new_flight.creator = current_user
     db.session.add(new_flight)
     db.session.commit()
+    # print(flight_schema.dump(new_flight))
     return redirect(url_for("flights.get_flights"))
 
 # An endpoint to get info for a particular flight
 @flights.route("/flights/<int:id>/", methods=["GET"])
+@login_required
 def get_flight(id):
     flight = Flight.query.get_or_404(id)
 
@@ -47,6 +53,7 @@ def get_flight(id):
 
 # A POST route to update flight info
 @flights.route("/flights/<int:id>/", methods=["POST"])
+@login_required
 def update_flight(id):
     flight = Flight.query.filter_by(flight_id=id)
     update_fields = flight_schema.dump(request.form)
@@ -61,6 +68,7 @@ def update_flight(id):
 
 # A DELETE method
 @flights.route("/flights/<int:id>/delete/", methods=["POST"])
+@login_required
 def delete_flight(id):
     flight = Flight.query.get_or_404(id)
     db.session.delete(flight)

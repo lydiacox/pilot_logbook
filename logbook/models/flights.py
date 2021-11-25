@@ -31,5 +31,7 @@ class Flight(db.Model):
     instrument_in_flight = db.Column(db.Float)
     instrument_ground = db.Column(db.Float)
 
+    creator_id = db.Column(db.Integer, db.ForeignKey("flasklogin-users.id"))
+
     # @property
     # Write decorators that add up the columns above into sensible groups

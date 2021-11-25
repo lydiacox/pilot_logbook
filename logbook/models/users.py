@@ -41,6 +41,15 @@ class User(UserMixin, db.Model):
         server_default="False"
     )
 
+    flights = db.relationship(
+        "Flight",
+        backref="creator"
+    )
+    # To access the list of flights created by a user, we call
+    # Username.flights = [<Flight 1>, <Flight 2>]
+    # To access the creator of a flight, we call Flightno.creator
+    # = <User name>
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
 

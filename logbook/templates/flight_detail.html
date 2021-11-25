@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>{{ page_data.flight.flight_no }}</h2>
+    <h2>{{ page_data.flight.flight_id }}</h2>
     <p>Flight ID: {{ page_data.flight.flight_id }}</p>
     <p>Aircraft Type: {{ page_data.flight.aircraft_type }}</p>
     <p>Aircraft Call Letters: {{ page_data.flight.aircraft_rego }}</p>
     <p>Date: {{ page_data.flight.flight_date }}</p>
+    <p>Creator: {{ page_data.flight.creator.name }} ({{ page_data.flight.creator.email }})</p>
     <br><br>
     <h3>Update Flight Info</h3>
     <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">

@@ -27,6 +27,7 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     multi_engine_co_pilot_night = auto_field(required = False, validate=Range(0, 24))
     instrument_in_flight = auto_field(required = False, validate=Range(0, 24))
     instrument_ground = auto_field(required = False, validate=Range(0, 24))
+    creator = ma.Nested("UserSchema")
 
     class Meta:
         model = Flight
