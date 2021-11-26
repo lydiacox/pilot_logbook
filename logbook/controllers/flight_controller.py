@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for, current_app
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, current_app, abort
 from main import db
 from models.flights import Flight
 from schemas.flight_schema import flight_schema, multi_flight_schema
@@ -44,7 +44,8 @@ def create_flight():
 @login_required
 def get_flight(id):
     flight = Flight.query.get_or_404(id)
-
+    if current_user.id != flight.creator_id:
+        abort(403, "You do not have permission to view this flight")
     data = {
         "page_title": "Flight Detail",
         "flight": flight_schema.dump(flight),
@@ -56,6 +57,8 @@ def get_flight(id):
 @login_required
 def update_flight(id):
     flight = Flight.query.filter_by(flight_id=id)
+    if current_user.id != flight.creator_id:
+        abort(403, "You do not have permission to view this flight")
     update_fields = flight_schema.dump(request.form)
     if update_fields:
         flight.update(update_fields)
@@ -71,6 +74,8 @@ def update_flight(id):
 @login_required
 def delete_flight(id):
     flight = Flight.query.get_or_404(id)
+    if current_user.id != flight().creator_id:
+        abort(403, "You do not have permission to delete this flight")
     db.session.delete(flight)
     db.session.commit()
     return redirect(url_for("flights.get_flights"))
