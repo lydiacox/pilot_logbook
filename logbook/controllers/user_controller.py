@@ -1,10 +1,12 @@
 from flask import Blueprint, request, render_template, redirect, url_for, abort, current_app
 from main import db, lm
 from models.users import User
+from models.flights import Flight
 from schemas.user_schema import user_schema, multi_user_schema, user_update_schema
 from flask_login import login_user, logout_user, login_required, current_user
 from marshmallow import ValidationError
 import boto3
+from sqlalchemy import func
 
 @lm.user_loader
 def load_user(user):
@@ -73,16 +75,16 @@ def user_detail():
         },
         ExpiresIn=100
     )
-
+    hours = db.session.query(func.sum(Flight.hours)).filter(User.id==current_user).scalar
     if request.method == "GET":
-        data = {"page_title": "Account Details", "image": image_url}
+        data = {"page_title": "Account Details", "image": image_url, "hours": hours}
         return render_template("user_details.html", page_data = data)
 
     updated_fields = user_schema.dump(request.form)
     # Validation happens when the schema loads, but not schema dumps, so we need to specify
     # that the fields should be validated
     errors = user_update_schema.validate(updated_fields)
-
+    
     if errors:
         raise ValidationError(message = errors)
 
