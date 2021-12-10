@@ -16,6 +16,7 @@
             <button>Update</button>
 
         </form>
+        <p>Total hours: {{ page_data.hours }}</p>
         <h3>Update Image:</h3>
         <form action="/users/account/image/" method="POST" enctype="multipart/form-data">
             <input type="file" name="image">

@@ -5,6 +5,9 @@ from marshmallow import fields, exceptions, validate
 from werkzeug.security import generate_password_hash
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
+    """
+    Creates instances from dictionaries and vice versa.
+    """
     class Meta:
         model=User
         load_instance=True
@@ -22,9 +25,21 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     )
 
     def load_password(self, password):
-        if len(password)>6:
-            return generate_password_hash(password, method='sha256')
-        raise exceptions.ValidationError("Password must be at least 6 characters.")
+        symbol = ['!','"','#','\'','$','%','&','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~']
+
+        if len(password)>8:
+            raise exceptions.ValidationError("Password must be at least 8 characters.")
+        if len(password)>20:
+            raise exceptions.ValidationError("Password must be no longer than 20 characters.")
+        if not any(char.isdigit() for char in password):
+            raise exceptions.ValidationError("Password must contain at least one number.")
+        if not any(char.isupper() for char in password):
+            raise exceptions.ValidationError("Password must contain at least one uppercase letter.")
+        if not any(char.islower() for char in password):
+            raise exceptions.ValidationError("Password must contain at least one lowercase letter.")
+        if not any(char in symbol for char in password):
+            raise exceptions.ValidationError("Password must contain at least one symbol.")
+        return generate_password_hash(password, method='sha256')
 
 user_schema = UserSchema()
 multi_user_schema = UserSchema(many=True)
