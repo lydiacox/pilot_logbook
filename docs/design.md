@@ -19,7 +19,7 @@ All of the ```STRING``` fields will have character limits. Within the ```pilot_p
 * Grade 2
 * Grade 3
 
-Within the ```flight``` table, the ```date_began``` field cannot be after today's date, and all of the ```FLOAT``` fields must be a number less than 24. The longest commerical flight in the world right now is under 19 hours[^2], and wouldn't have much fuel left to fly longer, so 24 hours would be more than sufficient. Most aircraft capable of mid-flight refuelling are operated by military personnel, who would be subject to different regulations than those covered here. The customer pool of AirForce One pilots who have remain airborne for a week is small, so I won't be taking them into account.
+Within the ```flight``` table, the ```date_began``` field cannot be after today's date, and all of the ```FLOAT``` fields must be a number between 0 and 24. The longest commerical flight in the world right now is under 19 hours[^2], and wouldn't have much fuel left to fly longer, so 24 hours would be more than sufficient. Most aircraft capable of mid-flight refuelling are operated by military personnel, who would be subject to different regulations than those covered here. The customer pool of AirForce One pilots who have to remain airborne for a week is small, so I won't be taking them into account.
 
 Within the instrument_approach table, ```approach_type``` will be data validated to one of the following: 
 * ILS (instrument landing system)
