@@ -3,13 +3,46 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 
 class User(UserMixin, db.Model):
-    # tablename specifies the name of the table
+    """
+    A class to represent a user model.
+    ...
+    Attributes
+    ----------
+    user_id : int
+        the primary key
+    pilot_id : int
+        the foreign key for the pilot_profile
+    first_name : string
+        first name of the user
+    last_name : string
+        last name of the user
+    email : string
+        email address of the user
+    password : string
+        password of the user
+    is_admin : boolean
+        whether the user is an admin
+    is_superadmin : boolean
+        whether the user is a super admin
+    has_image
+        whether the user has uploaded a profile image
+    Methods
+    -------
+    check_password(password):
+        Validates a password against the hashed password value.
+    image_filename():
+        Creates the file name for the user's uploaded image.
+    """
     __tablename__ = "flasklogin-users"
-    id = db.Column(
+    user_id = db.Column(
         db.Integer,
         primary_key=True
     )
-    name = db.Column(
+    first_name = db.Column(
+        db.String(100),
+        nullable=False
+    )
+    last_name = db.Column(
         db.String(100),
         nullable=False
     )
@@ -19,10 +52,9 @@ class User(UserMixin, db.Model):
         nullable=False
     )
     password = db.Column(
-        db.String(200),
+        db.String(40),
         nullable=False
     )
-
     is_admin = db.Column(
         db.Boolean(),
         nullable=False,
@@ -40,7 +72,6 @@ class User(UserMixin, db.Model):
         nullable=False,
         server_default="False"
     )
-
     flights = db.relationship(
         "Flight",
         backref="creator",
@@ -52,9 +83,23 @@ class User(UserMixin, db.Model):
     # = <User name>
 
     def check_password(self, password):
+        """
+        Validates a password against the hashed password value.
+            Parameters:
+                password: The password as input by the user.
+            Returns:
+                boolean
+        """
         return check_password_hash(self.password, password)
 
     @property
     def image_filename(self):
-        return f"user_images/{self.id}.png"
+        """
+        Creates the file name for the user's uploaded image.
+            Parameters:
+                None
+            Returns:
+                A string with the image file name
+        """
+        return f"user_images/{self.user_id}.png"
     
