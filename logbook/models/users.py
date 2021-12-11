@@ -77,6 +77,11 @@ class User(UserMixin, db.Model):
         backref="creator",
         lazy="joined"
     )
+    pilot = db.relationship(
+        "Pilot",
+        backref="user",
+        lazy="joined"
+    )
     # To access the list of flights created by a user, we call
     # Username.flights = [<Flight 1>, <Flight 2>]
     # To access the creator of a flight, we call Flightno.creator
