@@ -93,7 +93,7 @@ class User(UserMixin, db.Model):
             Parameters:
                 password: The password as input by the user.
             Returns:
-                boolean
+                boolean: True if the password is correct.
         """
         return check_password_hash(self.password, password)
 

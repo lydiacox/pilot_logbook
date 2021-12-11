@@ -49,9 +49,11 @@ class Flight(db.Model):
     instrument_in_flight : float between 0 and 24
         XXXXXXXXXXXXX
     instrument_ground : float between 0 and 24
-        XXXXXXXXXXXXX
+        hours in a flight simulator
     creator : foreign key
         user_id field from the users model
+    aircraft : foreign key
+        aircraft_id field from the aircraft model
     """
     __tablename__ = "flights"
 
@@ -77,7 +79,8 @@ class Flight(db.Model):
     instrument_in_flight = db.Column(db.Float(precision=1))
     instrument_ground = db.Column(db.Float(precision=1))
 
-    creator = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    creator_id = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    aircraft = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
 
     # @property
     # Write decorators that add up the columns above into sensible groups
