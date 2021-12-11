@@ -31,22 +31,23 @@ Within the instrument_approach table, ```approach_type``` will be data validated
 ## Security
 
 User privacy will be protected with an authorisation system, implemented using the ```Flask-Login``` package in the ```main.py``` file, where the app is created, and the ```users``` model. The ```users``` model will not actually store the password, but a hash of the password. I will add a secret key to the ```.env``` file, which is listed in the ```.gitignore``` file, to prevent its public display. Finally, the ```UserSchema``` model in the ```user_schema``` file will include a password that, rather than getting its value straight from the dictionary, uses a function that validates the password and hashes it. The validation checker will ensure the password:
-* is between 8 and 20 characters long
+* is between 8 and 30 characters long
 * contains at least one digit
 * contains at least one uppercase letter
 * contains at least one lowercase letter
 * contains at least one symbol
+* does not contain "password" or "passw0rd" ಠ_ಠ
 
 As an alternative, I could opt to import the ```regex``` package[^3]. Once a user is authenticated, they will only be able to view and edit their own profile and flight logs.
 
-When writing the database queries, I will not be writing my own raw SQL, which would be vulnerable to SQL injection attacks. I will instead utilise an ORM, Object Relational Mapper, SQLAlchemy. This software uses a ```BindParameter``` to wrap a ```%``` around variables a user enters into a query, so that any values that would execute an SQL command are escaped[^4], preventing a Little Bobby Tables[^5] situation.
+When writing the database queries, I will not be writing my own raw SQL, which would be vulnerable to SQL injection attacks. I will instead utilise an ORM, Object Relational Mapper, SQLAlchemy. Instead of passing user inputs directly to the database as a query, this software uses a ```BindParameter``` to wrap a ```%``` around the inputs and assigns them to variables. Any values that had been in the original input that would have executed an SQL command are escaped[^4], and the input is now a harmless string, preventing a Little Bobby Tables[^5] situation.
 
 ## Obligations
 
-Many of the fields in the diagram above are included in order to comply with CASR (Civil Aviation Safety Regulations)[^6]. According to CASR 1998 - REG 61.345:
+Many of the fields in the diagram above are included in order to comply with Civil Aviation Safety Regulations (CASR))[^6]. According to CASR 1998 - REG 61.345:
 > A person who holds a pilot licence ... commits an offence if the person does not keep a personal logbook in accordance with this regulation.
 
-It then goes on to stipulate the required fields for a flight to be logged. CASA (Civil Aviation Safety Authority) regularly conduct logbook audits, and can demand a pilot produce their logbook at any time. The pilot must comply within 7 days. Failure to do so could result in CASA issuing the pilot with 50 penalty units[^7], which would currently equate to $11,100[^8].
+It then goes on to stipulate the required fields for a flight to be logged. Civil Aviation Safety Authority (CASA) regularly conduct logbook audits, and can demand a pilot produce their logbook at any time. The pilot must comply within 7 days. Failure to do so could result in CASA issuing the pilot with 50 penalty units[^7], which would currently equate to $11,100[^8].
 
 As well as this threat of financial penalty, the accuracy of a pilot's logbook could also affect their employment. It is also important to consider that regulations change. In fact, at the time of writing this document, the regulations are changing, and many of the CASA website pages are presenting an error ```404```, which has not made things easy. It would be incumbent on the developer to remain abreast of any changes to ensure the logbook's continued compliance.
 
