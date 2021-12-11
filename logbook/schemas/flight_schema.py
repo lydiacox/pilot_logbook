@@ -54,12 +54,10 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
         user_id field from the users schema
     """
     flight_id = auto_field(dump_only=True)
-    aircraft_type = auto_field(required=True, validate=Length(min=1))
-    aircraft_rego = auto_field(required=True, validate=Length(min=1, max=10))
-    flight_date = auto_field(required=True)
+    date_began = auto_field(required=True)
+    take_off_landing_points = auto_field(required=True)
     pilot_in_command = auto_field(required=True)
     other_crew = auto_field(required = False)
-    details = auto_field(required=True)
     single_engine_icus_day = auto_field(required = False, validate=Range(0, 24))
     single_engine_icus_night = auto_field(required = False, validate=Range(0, 24))
     single_engine_dual_day = auto_field(required = False, validate=Range(0, 24))
@@ -76,6 +74,8 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     multi_engine_co_pilot_night = auto_field(required = False, validate=Range(0, 24))
     instrument_in_flight = auto_field(required = False, validate=Range(0, 24))
     instrument_ground = auto_field(required = False, validate=Range(0, 24))
+    
+    # references the relationship between the user and flight models
     creator = ma.Nested("UserSchema")
 
     class Meta:
