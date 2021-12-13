@@ -1,3 +1,4 @@
+from sqlalchemy.orm import relationship
 from main import db
 # from sqlalchemy import ChoiceTypes
 
@@ -48,5 +49,6 @@ class Pilot(db.Model):
     low_level_rating = db.Column(db.Boolean, nullable=True)
     night_vfr_rating = db.Column(db.Boolean, nullable=True)
     night_visual_imaging_sys_rating = db.Column(db.Boolean, nullable=True)
-
-    user = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    # One to one relationship to users (child)
+    parent_user_id = db.Column(db.Integer, db.ForeignKey('flasklogin-users.user_id'))
+    user = db.relationship("User", back_populates="pilot")

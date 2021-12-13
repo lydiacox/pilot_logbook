@@ -1,3 +1,4 @@
+from sqlalchemy.orm import relationship
 from main import db
 
 # Tells the ORM what tables should exist in the database
@@ -78,9 +79,13 @@ class Flight(db.Model):
     multi_engine_co_pilot_night = db.Column(db.Float(precision=1))
     instrument_in_flight = db.Column(db.Float(precision=1))
     instrument_ground = db.Column(db.Float(precision=1))
+    # One to many relationship, uni-directional, with users (child)
+    creator = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    # Many to one relationship, bi-directional, to aircraft (parent)
+    aircraft_child_id = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
+    aircraft = db.relationship("Aircraft", back_populates="flight_no", lazy="joined")
+    # One to many relationship to instrument_approach
 
-    creator_id = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
-    aircraft = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
 
     # @property
     # Write decorators that add up the columns above into sensible groups

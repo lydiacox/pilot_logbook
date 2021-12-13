@@ -24,4 +24,6 @@ class Aircraft(db.Model):
     multi_engine = db.Column(db.Boolean, nullable=False, server_default=False)
     type = db.Column(db.String, nullable=False)
     nationality = db.Column(db.String, nullable=False, server_default="Australia")
-    registration = db.Column(db.String, nullable=False, unique=True)
+    registration = db.Column(db.String, nullable=False)
+    # Many to one relationship, bi-directional, to flights (child)
+    flight_no = db.relationship("Flight", back_populates="aircraft")

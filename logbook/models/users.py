@@ -34,54 +34,18 @@ class User(UserMixin, db.Model):
         Creates the file name for the user's uploaded image.
     """
     __tablename__ = "flasklogin-users"
-    user_id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-    first_name = db.Column(
-        db.String(100),
-        nullable=False
-    )
-    last_name = db.Column(
-        db.String(100),
-        nullable=False
-    )
-    email = db.Column(
-        db.String(40),
-        unique=True,
-        nullable=False
-    )
-    password = db.Column(
-        db.String(40),
-        nullable=False
-    )
-    is_admin = db.Column(
-        db.Boolean(),
-        nullable=False,
-        server_default="False"
-    )
-
-    is_superadmin = db.Column(
-        db.Boolean(),
-        nullable=False,
-        server_default="False"
-    )
-        
-    has_image = db.Column(
-        db.Boolean(),
-        nullable=False,
-        server_default="False"
-    )
-    flights = db.relationship(
-        "Flight",
-        backref="creator",
-        lazy="joined"
-    )
-    pilot = db.relationship(
-        "Pilot",
-        backref="user",
-        lazy="joined"
-    )
+    user_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(100),nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(40), unique=True, nullable=False)
+    password = db.Column(db.String(40), nullable=False)
+    is_admin = db.Column(db.Boolean(), nullable=False, server_default="False")
+    is_superadmin = db.Column(db.Boolean(), nullable=False, server_default="False")
+    has_image = db.Column(db.Boolean(), nullable=False, server_default="False")
+    # One to many relationship, uni-directional, with flights (parent)
+    flights = db.relationship("Flight", backref="creator", lazy="joined")
+    # One to one relationship with pilots (parent)
+    pilot = db.relationship("Pilot", back_populates="user", uselist=False, lazy="joined")
     # To access the list of flights created by a user, we call
     # Username.flights = [<Flight 1>, <Flight 2>]
     # To access the creator of a flight, we call Flightno.creator
