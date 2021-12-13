@@ -1,5 +1,5 @@
 from main import db
-from sqlalchemy import ChoiceTypes
+# from sqlalchemy import ChoiceTypes
 
 class Pilot(db.Model):
     """

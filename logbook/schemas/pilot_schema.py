@@ -4,7 +4,8 @@ from marshmallow_sqlalchemy import auto_field
 
 class PilotSchema(ma.SQLAlchemyAutoSchema):
     """
-    A class to represent a pilot schema
+    A class to represent a pilot schema.
+    ...
     Attributes
     ----------
     pilot_id : int
