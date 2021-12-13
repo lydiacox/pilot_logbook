@@ -84,8 +84,8 @@ class Flight(db.Model):
     # Many to one relationship, bi-directional, to aircraft (parent)
     aircraft_child_id = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
     aircraft = db.relationship("Aircraft", back_populates="flight_no", lazy="joined")
-    # One to many relationship to instrument_approach
-
+    # One to many relationship, bi-directional, to instrument_approach
+    approach = db.relationship("InstrumentApproach", back_populates="approach_flight", lazy="joined")
 
     # @property
     # Write decorators that add up the columns above into sensible groups

@@ -6,6 +6,7 @@ from marshmallow.validate import Length, Range
 class FlightSchema(ma.SQLAlchemyAutoSchema):
     """
     A class to represent a flight schema.
+    ...
     Attributes
     ----------
     flight_id : int
