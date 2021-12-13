@@ -52,6 +52,9 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     is_superadmin = auto_field(required=False, default=False)
     has_image = auto_field(required=False, default=False)
 
+    flights = ma.Nested("FlightSchema")
+    pilot = ma.Nested("PilotSchema")
+
     def load_password(self, password):
         """
         Validates the password, returns a hash of it.

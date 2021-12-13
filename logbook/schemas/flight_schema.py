@@ -78,6 +78,8 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     
     # references the relationship between the user and flight models
     creator = ma.Nested("UserSchema")
+    aircraft = ma.Nested("AircraftSchema")
+    approach = ma.Nested("InstrumentApproach")
 
     class Meta:
         model = Flight
