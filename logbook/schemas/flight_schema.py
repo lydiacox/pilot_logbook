@@ -2,6 +2,7 @@ from main import ma
 from models.flights import Flight
 from marshmallow_sqlalchemy import auto_field
 from marshmallow.validate import Length, Range
+from datetime import datetime
 
 class FlightSchema(ma.SQLAlchemyAutoSchema):
     """
@@ -55,7 +56,7 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
         user_id field from the users schema
     """
     flight_id = auto_field(dump_only=True)
-    date_began = auto_field(required=True)
+    date_began = auto_field(required=True, validate=lambda x: x < datetime.now())
     take_off_landing_points = auto_field(required=True)
     pilot_in_command = auto_field(required=True)
     other_crew = auto_field(required = False)
@@ -79,7 +80,7 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     # references the relationship between the user and flight models
     creator = ma.Nested("UserSchema")
     aircraft = ma.Nested("AircraftSchema")
-    approach = ma.Nested("InstrumentApproach")
+    approach = ma.Nested("ApproachSchema")
 
     class Meta:
         model = Flight

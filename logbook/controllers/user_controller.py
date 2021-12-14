@@ -19,14 +19,14 @@ def unauthorised():
 
 users = Blueprint("users", __name__)
 
-@users.route("/users/", methods=["GET"])
-def get_users():
-    """Displays a list of users from the database"""
-    data = {
-        "page_title": "User Index",
-        "users": multi_user_schema.dump(User.query.all())
-    }
-    return render_template("user_index.html", page_data=data)
+# @users.route("/users/", methods=["GET"])
+# def get_users():
+#     """Displays a list of users from the database"""
+#     data = {
+#         "page_title": "User Index",
+#         "users": multi_user_schema.dump(User.query.all())
+#     }
+#     return render_template("user_index.html", page_data=data)
 
 @users.route("/users/signup/", methods=["GET", "POST"])
 def sign_up():

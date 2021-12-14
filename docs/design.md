@@ -4,6 +4,15 @@ I am creating a Pilot Logbook for recording flights. Pilots will be able to crea
 
 ![an entity relationship diagram of the application](logbook_erd.png)
 
+The website will consist of:
+
+| Page | Displays | Actions | Links to |
+| ---- | -------- | ------- | -------- |
+| / | An aeroplane | None | Sign up, sign in |
+| /users/signup/ | Form to create account | New account, once created |
+| /users/login/ | Username & password fields | User account page |
+| /users/account/ | Account details | 
+
 ## Data validation
 
 All of the ```STRING``` fields will have character limits. Within the ```pilot_profile``` table, the ```licence_class``` and ```instructor_rating``` fields will be subject to data validation, as there are only a finite number of options for each.

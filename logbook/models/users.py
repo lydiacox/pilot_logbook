@@ -42,8 +42,8 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean(), nullable=False, server_default="False")
     is_superadmin = db.Column(db.Boolean(), nullable=False, server_default="False")
     has_image = db.Column(db.Boolean(), nullable=False, server_default="False")
-    # One to many relationship, uni-directional, with flights (parent)
-    flights = db.relationship("Flight", backref="creator", lazy="joined")
+    # One to many relationship, bi-directional, with flights (parent)
+    flights = db.relationship("Flight", back_populates="creator", lazy="joined")
     # One to one relationship with pilots (parent)
     pilot = db.relationship("Pilot", back_populates="user", uselist=False, lazy="joined")
     # To access the list of flights created by a user, we call

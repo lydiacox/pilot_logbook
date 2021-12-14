@@ -79,12 +79,13 @@ class Flight(db.Model):
     multi_engine_co_pilot_night = db.Column(db.Float(precision=1))
     instrument_in_flight = db.Column(db.Float(precision=1))
     instrument_ground = db.Column(db.Float(precision=1))
-    # One to many relationship, uni-directional, with users (child)
-    creator = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    # One to many relationship, bi-directional, with users (child)
+    creator_id = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
+    creator = db.relationship("User", back_populates="flights")
     # Many to one relationship, bi-directional, to aircraft (parent)
     aircraft_child_id = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
     aircraft = db.relationship("Aircraft", back_populates="flight_no", lazy="joined")
-    # One to many relationship, bi-directional, to instrument_approach
+    # One to many relationship, bi-directional, to instrument_approach (parent)
     approach = db.relationship("InstrumentApproach", back_populates="approach_flight", lazy="joined")
 
     # @property
