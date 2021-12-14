@@ -1,6 +1,5 @@
 from sqlalchemy.orm import relationship
 from main import db
-# from sqlalchemy import ChoiceTypes
 
 class Pilot(db.Model):
     """
@@ -15,29 +14,23 @@ class Pilot(db.Model):
     licence_class : str
         rpl, ppl, cpl or atpl
     ariel_application_rating : bool
+        whether the pilot has an arial application rating
     instructor_rating : str
         grade 1, grade 2 or grade 3
     instrument_rating : bool
+        whether the pilot has an instrument rating
     low_level_rating : bool
+        whether the pilot has a low level rating
     night_vfr_rating : bool
+        whether the pilot has a night vfr rating
     night_visual_imaging_sys_rating : bool
-    user : int
-        user_id field from the users model
+        whether the pilot has aa night visual imaging system rating
+    parent_user_id : int
+        foreign key for the related user
+    user : 
+        1:1 relationship with the user
     """
-    # Uncomment if using enum or ClassType for data validation
-    # https://sqlalchemy-utils.readthedocs.io/en/latest/data_types.html
-    # https://docs.sqlalchemy.org/en/14/core/type_basics.html#sqlalchemy.types.Enum
-    # classes = [
-    #     (u'rpl', u'RPL'),
-    #     (u'ppl', u'PPL'),
-    #     (u'cpl', u'CPL'),
-    #     (u'atpl', u'ATPL')
-    # ]
-    # ratings = [
-    #     (u'grade 1', u'Grade 1'),
-    #     (u'grade 2', u'Grade 2'),
-    #     (u'grade 3', u'Grade 3')
-    # ]
+
     __table__name = "pilots"
 
     pilot_id = db.Column(db.Integer, primary_key=True)
@@ -45,10 +38,10 @@ class Pilot(db.Model):
     licence_class = db.Column(db.String(10), nullable=True)
     ariel_application_rating = db.Column(db.Boolean, nullable=True, server_default=False)
     instructor_rating = db.Column(db.String(10), nullable=True)
-    instrument_rating = db.Column(db.Boolean, nullable=True)
-    low_level_rating = db.Column(db.Boolean, nullable=True)
-    night_vfr_rating = db.Column(db.Boolean, nullable=True)
-    night_visual_imaging_sys_rating = db.Column(db.Boolean, nullable=True)
+    instrument_rating = db.Column(db.Boolean, nullable=True, server_default=False)
+    low_level_rating = db.Column(db.Boolean, nullable=True, server_default=False)
+    night_vfr_rating = db.Column(db.Boolean, nullable=True, server_default=False)
+    night_visual_imaging_sys_rating = db.Column(db.Boolean, nullable=True, server_default=False)
     # One to one relationship to users (child)
     parent_user_id = db.Column(db.Integer, db.ForeignKey('flasklogin-users.user_id'))
-    user = db.relationship("User", back_populates="pilot")
+    user = db.relationship("User", back_populates="pilot", lazy="joined")

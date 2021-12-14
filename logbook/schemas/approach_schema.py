@@ -8,18 +8,25 @@ class ApproachSchema(ma.SQLAlchemyAutoSchema):
     ...
     Attributes
     ----------
+    approach_id : int
+        the primary key
+    approach_type : str
+        ILS, RNP, VOR, NDB or Visual
+    approach_flight_id : int
+        foreign key of the related flight
+    approach_flight : dict
+        nested FlightSchema
     """
 
-ifr_approach_id = auto_field(dump_only=True)
-# add more validation??
-approach_type = auto_field(required=True)
-approach_flight_id = auto_field(required=True)
+    approach_id = auto_field(dump_only=True)
+    approach_type = auto_field(required=True)
+    approach_flight_id = auto_field(required=True)
 
-approach_flight = ma.Nested("FlightSchema")
+    approach_flight = ma.Nested("FlightSchema")
 
-class Meta:
-    model = InstrumentApproach
-    load_instance = True
+    class Meta:
+        model = InstrumentApproach
+        load_instance = True
 
 approach_schema = ApproachSchema()
 multi_approach_schema = ApproachSchema(many=True)

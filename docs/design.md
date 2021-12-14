@@ -9,13 +9,25 @@ The website will consist of:
 | Page | Displays | Actions | Links to |
 | ---- | -------- | ------- | -------- |
 | / | An aeroplane | None | Sign up, sign in |
-| /users/signup/ | Form to create account | New account, once created |
-| /users/login/ | Username & password fields | User account page |
-| /users/account/ | Account details | 
+| /users/signup/ | Form to create account | Create new account | New account, once created |
+| /users/login/ | Username & password fields | Login | User account page |
+| /users/account/ | Account details | Edit details |  |
+| /users/account/flights | Table of flights |  | Flight details |
+| /users/account/flights/<int:id> | Flight details | Edit details | 
 
 ## Data validation
 
-All of the ```STRING``` fields will have character limits. Within the ```pilot_profile``` table, the ```licence_class``` and ```instructor_rating``` fields will be subject to data validation, as there are only a finite number of options for each.
+All of the ```STRING``` fields will have character limits. Within the ```flight``` table, the ```date_began``` field cannot be after today's date, and all of the ```FLOAT``` fields must be a number between 0 and 24. The longest commerical flight in the world right now is under 19 hours[^2], and wouldn't have much fuel left to fly longer, so 24 hours would be more than sufficient. Most aircraft capable of mid-flight refuelling are operated by military personnel, who would be subject to different regulations than those covered here. The customer pool of AirForce One pilots who have to remain airborne for a week is small, so I won't be taking them into account.
+
+Within the ```pilot_profile``` table, the ```licence_class``` and ```instructor_rating```, and within the ```instrument_approach``` table the ```approach_type``` only have finite options available for each, listed below. I will include these options as radio buttons on the appropriate webpages, so that invalid data cannot be submitted to the database. As an extension, if I have time, I will add data validation to the schemas.
+<!-- https://marshmallow.readthedocs.io/en/latest/extending.html#schema-level-validation -->
+
+### approach_type
+* ILS (instrument landing system)
+* RNP (reduced navigation performance)
+* VOR (variable omni-directional range)
+* NDB (non-directional beacon)
+* Visual
 
 ### licence_class
 * RPL (Recreational pilot licence)
@@ -27,15 +39,6 @@ All of the ```STRING``` fields will have character limits. Within the ```pilot_p
 * Grade 1
 * Grade 2
 * Grade 3
-
-Within the ```flight``` table, the ```date_began``` field cannot be after today's date, and all of the ```FLOAT``` fields must be a number between 0 and 24. The longest commerical flight in the world right now is under 19 hours[^2], and wouldn't have much fuel left to fly longer, so 24 hours would be more than sufficient. Most aircraft capable of mid-flight refuelling are operated by military personnel, who would be subject to different regulations than those covered here. The customer pool of AirForce One pilots who have to remain airborne for a week is small, so I won't be taking them into account.
-
-Within the ```instrument_approach``` table, ```approach_type``` will be data validated to one of the following: 
-* ILS (instrument landing system)
-* RNP (reduced navigation performance)
-* VOR (variable omni-directional range)
-* NDB (non-directional beacon)
-* Visual
 
 ## Security
 

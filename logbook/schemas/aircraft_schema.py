@@ -18,19 +18,23 @@ class AircraftSchema(ma.SQLAlchemyAutoSchema):
         country of registration
     registration : str
         registration number
+    flight_no : dict
+        nested FlightSchema
     """
-
+    class Meta:
+        model = Aircraft
+        load_instance = True
+        
     aircraft_id = auto_field(dump_only=True)
     multi_engine = auto_field(required=True)
     type = auto_field(required=True)
     nationality = auto_field(required=True)
     registration = auto_field(required=True)
+    # are these two fields in combination unique? Could be stretch goal
+    # define validation of the schema as a whole
+    # https://marshmallow.readthedocs.io/en/latest/extending.html#schema-level-validation
 
     flight_no = ma.Nested("FlightSchema")
-
-    class Meta:
-        model = Aircraft
-        load_instance = True
 
 aircraft_schema = AircraftSchema()
 multi_aircraft_schema = AircraftSchema(many=True)

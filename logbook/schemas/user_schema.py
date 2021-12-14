@@ -16,20 +16,25 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         the primary key
     pilot_id : int
         the foreign key for the pilot_profile
-    first_name : string
+    first_name : str
         first name of the user
-    last_name : string
+    last_name : str
         last name of the user
-    email : string
+    email : str
         email address of the user
-    password : string
+    password : str
         password of the user
-    is_admin : boolean
+    is_admin : bool
         whether the user is an admin
-    is_superadmin : boolean
+    is_superadmin : bool
         whether the user is a super admin
-    has_image
+    has_image : bool
         whether the user has uploaded a profile image
+    flights : dict
+        nested FlightSchema
+    pilot : dict
+        nested PilotSchema
+    
     Methods
     -------
     load_password(password):

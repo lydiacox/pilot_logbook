@@ -13,11 +13,11 @@ class Flight(db.Model):
         the primary key
     date_began : date
         the date the flight started
-    take_off_landing_points : string
+    take_off_landing_points : str
         IATA codes for all take off and landing points
-    pilot_in_command : string
+    pilot_in_command : str
         the name of the pilot in command
-    other_crew : string
+    other_crew : str
         the name(s) of any other flight crew
     single_engine_icus_day : float between 0 and 24
         day hours in single engine aircraft in command under supervision
@@ -48,13 +48,19 @@ class Flight(db.Model):
     multi_engine_co_pilot_night : float between 0 and 24
         night hours co-piloting in multi engine aircraft
     instrument_in_flight : float between 0 and 24
-        XXXXXXXXXXXXX
+        instrument hours in flight
     instrument_ground : float between 0 and 24
         hours in a flight simulator
-    creator : foreign key
-        user_id field from the users model
-    aircraft : foreign key
-        aircraft_id field from the aircraft model
+    creator_id : int
+        foreign key of the user
+    creator : 
+        1:M relationship with the user
+    aircraft_flight_id : int
+        foreign key of the aircraft
+    aircraft : 
+        1:M relationship with the aircraft
+    approach : list
+        1:M relationship with the approaches
     """
     __tablename__ = "flights"
 
@@ -81,9 +87,9 @@ class Flight(db.Model):
     instrument_ground = db.Column(db.Float(precision=1))
     # One to many relationship, bi-directional, with users (child)
     creator_id = db.Column(db.Integer, db.ForeignKey("flasklogin-users.user_id"))
-    creator = db.relationship("User", back_populates="flights")
-    # Many to one relationship, bi-directional, to aircraft (parent)
-    aircraft_child_id = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
+    creator = db.relationship("User", back_populates="flights", lazy="joined")
+    # One to many relationship, bi-directional, to aircraft (child)
+    aircraft_flight_id = db.Column(db.Integer, db.ForeignKey("aircraft.aircraft_id"))
     aircraft = db.relationship("Aircraft", back_populates="flight_no", lazy="joined")
     # One to many relationship, bi-directional, to instrument_approach (parent)
     approach = db.relationship("InstrumentApproach", back_populates="approach_flight", lazy="joined")
