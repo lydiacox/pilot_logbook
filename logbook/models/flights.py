@@ -19,37 +19,37 @@ class Flight(db.Model):
         the name of the pilot in command
     other_crew : str
         the name(s) of any other flight crew
-    single_engine_icus_day : float between 0 and 24
+    single_engine_icus_day : float
         day hours in single engine aircraft in command under supervision
-    single_engine_icus_night : float between 0 and 24
+    single_engine_icus_night : float
         night hours in single engine aircraft in command under supervision
-    single_engine_dual_day : float between 0 and 24
+    single_engine_dual_day : float
         day hours second in command in single engine aircraft
-    single_engine_dual_night : float between 0 and 24
+    single_engine_dual_night : float
         night hours second in command in single engine aircraft
-    single_engine_command_day : float between 0 and 24
+    single_engine_command_day : float
         day hours in command of single engine aircraft
-    single_engine_command_night : float between 0 and 24
+    single_engine_command_night : float
         night hours in command of single engine aircraft
-    multi_engine_icus_day : float between 0 and 24
+    multi_engine_icus_day : float
         day hours in multi engine aircraft in command under supervision
-    multi_engine_icus_night : float between 0 and 24
+    multi_engine_icus_night : float
         night hours in multi engine aircraft in command under supervision
-    multi_engine_dual_day : float between 0 and 24
+    multi_engine_dual_day : float
         day hours second in command in multi engine aircraft
-    multi_engine_dual_night : float between 0 and 24
+    multi_engine_dual_night : float
         night hours second in command in multi engine aircraft
-    multi_engine_command_day : float between 0 and 24
+    multi_engine_command_day : float
         day hours in command of multi engine aircraft
-    multi_engine_command_night : float between 0 and 24
+    multi_engine_command_night : float
         night hours in command of multi engine aircraft
-    multi_engine_co_pilot_day : float between 0 and 24
+    multi_engine_co_pilot_day : float
         day hours co-piloting in multi engine aircraft
-    multi_engine_co_pilot_night : float between 0 and 24
+    multi_engine_co_pilot_night : float
         night hours co-piloting in multi engine aircraft
-    instrument_in_flight : float between 0 and 24
+    instrument_in_flight : float
         instrument hours in flight
-    instrument_ground : float between 0 and 24
+    instrument_ground : float
         hours in a flight simulator
     creator_id : int
         foreign key of the user
