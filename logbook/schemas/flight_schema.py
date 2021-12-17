@@ -2,7 +2,11 @@ from main import ma
 from models.flights import Flight
 from marshmallow_sqlalchemy import auto_field
 from marshmallow.validate import Length, Range
-from datetime import datetime
+# from datetime import datetime
+
+# def right_now(x):
+#     now = datetime.now()
+#     return x < now
 
 class FlightSchema(ma.SQLAlchemyAutoSchema):
     """
@@ -63,12 +67,14 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     approach : dict
         nested ApproachSchema
     """
+
     class Meta:
         model = Flight
         load_instance = True
-    
+
     flight_id = auto_field(dump_only=True)
-    date_began = auto_field(required=True, validate=lambda x: x < datetime.now())
+    # Add validate=right_now as an extension
+    date_began = auto_field(required=True)
     take_off_landing_points = auto_field(required=True)
     pilot_in_command = auto_field(required=True)
     other_crew = auto_field(required = False)

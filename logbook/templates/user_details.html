@@ -5,23 +5,31 @@
         <img src="{{ page_data.image }}" style="width: 250px">
     {% endif %}
     <div>
+        <p>Name: {{ current_user.first_name }}  {{ current_user.last_name }}</p>
+        <p>Email address: {{ current_user.email }}</p>
+        <p>ARN: {{ current_user.pilot.arn }} Licence: {{ current_user.pilot.licence_class }}</p>
+        <p>Aerial Application Rating: {{ current_user.pilot.ariel_application_rating }}</p>
+        <!-- Insert pilot profile details -->
+    </div>
+    <div>
+        <h3>Update details</h3>
         <form action="/users/account/" method="POST">
-
-            <label for="name">Name</label>
-            <input type="text" name="name" value = {{ current_user.name }}>
-
+            <label for="first_name">First name</label>
+            <input type="text" name="first_name" value = {{ current_user.first_name }}>
+            <label for="last_name">Last name</label>
+            <input type="text" name="first_name" value = {{ current_user.last_name }}>
             <label for="email">Email</label>
             <input type="text" name="email" value = {{ current_user.email }}>
-
+            <label for="pilot.arn">ARN</label>
+            <input type="number" name="arn" value = {{ current_user.pilot.arn }}>
             <button>Update</button>
 
         </form>
-        <p>Total hours: {{ page_data.hours }}</p>
+        <!-- <p>Total hours: {{ page_data.hours }}</p> -->
         <h3>Update Image:</h3>
         <form action="/users/account/image/" method="POST" enctype="multipart/form-data">
             <input type="file" name="image">
-            <input type="submit">
-            <button>Update</button>
+            <button type="submit">Update</button>
         </form>
     </div>
 {% endblock %}

@@ -1,5 +1,3 @@
-from enum import auto
-from typing_extensions import Required
 from main import ma
 from models.users import User
 from marshmallow_sqlalchemy import auto_field
@@ -74,7 +72,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         """
         symbol = ['!','"','#','\'','$','%','&','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~']
 
-        if len(password)>8:
+        if len(password)<8:
             raise exceptions.ValidationError("Password must be at least 8 characters.")
         if len(password)>30:
             raise exceptions.ValidationError("Password must be no longer than 30 characters.")
@@ -86,8 +84,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
             raise exceptions.ValidationError("Password must contain at least one lowercase letter.")
         if not any(char in symbol for char in password):
             raise exceptions.ValidationError("Password must contain at least one symbol.")
-        if "password" or "passw0rd" in password.lower():
-            raise exceptions.ValidationError("C'mon. No. You stop that now.")
+        # if "password" or "passw0rd" in password.lower():
+        #     raise exceptions.ValidationError("C'mon. No. You stop that now.")
         return generate_password_hash(password, method='sha256')
         # Alternatively, import regex package
         # www.geeksforgeeks.org/password-validation-in-python

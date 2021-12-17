@@ -23,7 +23,7 @@ class Aircraft(db.Model):
     __tablename__ = "aircraft"
 
     aircraft_id = db.Column(db.Integer, primary_key=True)
-    multi_engine = db.Column(db.Boolean, nullable=False, server_default=False)
+    multi_engine = db.Column(db.Boolean, nullable=False, server_default="False")
     type = db.Column(db.String, nullable=False)
     # extention project: make nationality & registration in combination unique
     # define validation of the schema as a whole

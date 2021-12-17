@@ -13,7 +13,7 @@ def update_image():
     # if not current_user.is_admin:
     #     abort(403, "You do not have permission!")
     
-    user = User.query.get_or_404(current_user.id)
+    user = User.query.get_or_404(current_user.user_id)
 
     if "image" in request.files:
         image = request.files["image"]
@@ -27,6 +27,6 @@ def update_image():
         user.has_image=True
         db.session.commit()
 
-        return redirect(url_for("users.user_detail", id=current_user.id))
+        return redirect(url_for("users.user_detail", id=current_user.user_id))
     
     return abort(400, description="No image")

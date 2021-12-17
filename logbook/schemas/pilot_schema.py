@@ -36,9 +36,10 @@ class PilotSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
 
     pilot_id = auto_field(dump_only=True)
-    arn = auto_field(required=False, validate=validate.Length(10))
+    arn = auto_field(required=False)
     # add data validation
     licence_class = auto_field(required=False)
+    # fix spelling of "aerial"
     ariel_application_rating = auto_field(required=False)
     # add data validation
     instructor_rating = auto_field(required=False)
@@ -51,3 +52,4 @@ class PilotSchema(ma.SQLAlchemyAutoSchema):
 
 pilot_schema = PilotSchema()
 multi_pilot_schema = PilotSchema(many=True)
+pilot_update_schema = PilotSchema(partial=True)

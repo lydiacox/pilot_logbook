@@ -3,7 +3,6 @@ from main import db
 from models.flights import Flight
 from schemas.flight_schema import flight_schema, multi_flight_schema
 from flask_login import login_required, current_user
-import boto3
 
 flights = Blueprint('flights', __name__)
 
@@ -19,7 +18,7 @@ def home_page():
     return render_template("homepage.html", page_data=data)
 
 # The GET route endpoint
-@flights.route('/flights/', methods=["GET"])
+@flights.route('/users/account/flights/', methods=["GET"])
 @login_required
 def get_flights():
     data = {

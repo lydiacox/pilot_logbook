@@ -3,52 +3,67 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Pilot Logbook</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sticky-footer-navbar/">
         <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-        <title>
-            Pilot Logbook
-        </title>
+            <style>
+                .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                }
+        
+                @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+                }
+            </style>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <header>
-            <h1>{{ page_data.page_title }}</h1>
-            <nav class ="navbar navbar-expand-lg navbar-dark">
-                <ul class="navbar-item">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/flights/">Flights</a>
-                    </li>
-                    <li>
-                        <a href="/users/">User Index</a>
-                    </li>
-                </ul>
-                <ul class="nav-item"></ul>
-                    {% if current_user.is_authenticated %}
-                    <li>
-                        <a href="/users/account/">Account</a>
-                        <form action="/users/logout/" method="POST">
-                            <button>Log Out</button>
-                        </form>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="/users/login/">Log In</a>
-                    </li>
-                    <li>
-                        <a href="/users/signup/">Sign up</a>
-                    </li>
-                    {% endif %}
-                <ul class="nav-item"></ul>
+            <nav class ="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Pilot Logbook</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="/">Home</a>
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-item nav-link" href="/users/account/">Account</a>
+                        <a class="nav-item nav-link" href="/flights/">Flights</a>
+                            <form action="/users/logout/" method="POST">
+                                <button>Log Out</button>
+                            </form>
+                        {% else %}
+                        <a class="nav-item nav-link" href="/users/login/">Log In</a>
+                        <a class="nav-item nav-link" href="/users/signup/">Sign up</a>
+                        {% endif %}
+                    </ul>
+                </div>
             </nav>
         </header>
-        <div>
-            {% block content %}
+        <main role="main" class="flex-shrink-0"></main>
+            <div class="container">
+                <h1 class="mt-5">{{ page_data.page_title }}</h1>
+                {% block content %}
 
-            {% endblock %}
-        </div>
-        <footer>Thanks for visiting!</footer>
+                {% endblock %}
+            </div>
+        </main>
+        <footer class="container py-5">
+            <div class="container">
+              <span class="text-muted">&copy;2021 Lydia Cox. All rights reserved.</span>
+            </div>
+          </footer>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
 

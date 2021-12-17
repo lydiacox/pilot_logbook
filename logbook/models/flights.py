@@ -1,5 +1,8 @@
 from sqlalchemy.orm import relationship
 from main import db
+from models.users import User
+from models.aircraft import Aircraft
+from models.approach import InstrumentApproach
 
 # Tells the ORM what tables should exist in the database
 # Allows us to retrieve info from those tables
@@ -65,7 +68,7 @@ class Flight(db.Model):
     __tablename__ = "flights"
 
     flight_id = db.Column(db.Integer, primary_key=True)
-    date_began = db.Column(db.String(10), nullable=False, server_default="1/1/1900")
+    date_began = db.Column(db.DateTime, nullable=False, server_default="1/1/1900")
     take_off_landing_points = db.Column(db.String(200), nullable=False)
     pilot_in_command = db.Column(db.String(100), nullable=False)
     other_crew = db.Column(db.String(200))

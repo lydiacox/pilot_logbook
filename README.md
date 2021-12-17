@@ -4,17 +4,11 @@ Pilots would be able to sign up for an account, log in and add a profile photo. 
 * First name
 * Last name
 * Email address
-* Phone number
-* Date of birth
 * Aviation reference number
 
 They would be able to record their licences:
 * Licence type
-* Date of issue
-
-Their endorsements:
-* Aircraft type
-* Date of issue
+* Ratings
 
 As well as their medical certificates:
 * Class
@@ -64,3 +58,6 @@ The enter the following text and press Enter/Return:
 
 To open the README file, enter the following text and press Enter/Return:
 ./readme.md
+
+How to get things ready. flask run
+flask db-custom create
