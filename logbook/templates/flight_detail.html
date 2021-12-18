@@ -1,15 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>{{ page_data.flight.flight_id }}</h2>
+    <h2>{{ page_data.flight.date_began }} {{ page_data.flight.take_off_landing_points }}</h2>
     <p>Date: {{ page_data.flight.date_began }}</p>
-    <p>Creator: {{ page_data.flight.creator.first_name }} ({{ page_data.flight.creator.email }})</p>
+    <p>Take off & landing points: {{ page_data.flight.take_off_landing_points }}</p>
+    <p>Pilot in Command: {{ page_data.flight.pilot_in_command }}</p>
+    <p>Other crew: {{ page_data.flight. }}</p>
+    <h3>Single Engine Hours</h3>
+    <p>Single Engine ICUS (day): {{ page_data.flight.single_engine_icus_day }} Single Engine ICUS (night): {{ page_data.flight.single_engine_icus_night }}</p>
+    <p>Single Engine Dual (day): {{ page_data.flight.single_engine_dual_day }} Single Engine Dual (night): {{ page_data.flight.single_engine_dual_night }}</p>
+    <p>Single Engine Command (day): {{ page_data.flight.single_engine_command_day }} Single Engine Command (night): {{ page_data.flight.single_engine_command_night }}</p>
+    <h3>Multi Engine Hours</h3>
+    <p>Mutli Engine ICUS (day): {{ page_data.flight.multi_engine_icus_day }} Multi Engine ICUS (night): {{ page_data.flight.multi_engine_icus_night }}</p>
+    <p>Multi Engine Dual (day): {{ page_data.flight.multi_engine_dual_day }} Multi Engine Dual (night): {{ page_data.flight.multi_engine_dual_night }}</p>
+    <p>Multi Engine Command (day): {{ page_data.flight.multi_engine_command_day }} Multi Engine Command (night): {{ page_data.flight.multi_engine_command_night }}</p>
+    <p>Multi Engine Co Pilot (day): {{ page_data.flight.multi_engine_co_pilot_day }} Multi Co Pilot Command (night): {{ page_data.flight.multi_engine_co_pilot_night }}</p>    
+    <h3>Instrument Hours</h3>
+    <p>Instrument in Flight: {{ page_data.flight.instrument_in_flight }}</p>
+    <p>Instrument Ground: {{ page_data.flight.instrument_ground }}</p>
     <br><br>
     <h3>Update Flight Info</h3>
-    <!-- <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">
-        <input type="text" number="aircraft_type" placeholder="Aircraft type..."/>
+    <form action="/flights/{{ page_data.flight.flight_id }}/", method="POST">
+        <label for="date_began">Date began</label>
+        <input type="datetime-local" name="date_began" value = {{ flight.date_began }}>
+        <label for="take_off_landing_points">Take off & landing points began</label>
+        <input type="text" name="take_off_landing_points" value = {{ flight.take_off_landing_points }}>
+        <label for="pilot_in_command">Pilot in Command</label>
+        <input type="text" name="pilot_in_command" value = {{ flight.pilot_in_command }}>
+        <label for="other_crew">Other crew</label>
+        <input type="text" name="other_crew" value = {{ flight.other_crew }}>
+        <label for="single_engine_icus_day">Single Engine ICUS (day)</label>
+        <input type="number" name="single_engine_icus_day" value = {{ flight.single_engine_icus_day }}>
+        <label for="field_name">Field</label>
+        <input type="number" name="field_name" value = {{ flight.field_name }}>
                 <button>Update</button>
-    </form> -->
+    </form>
     <br><br>
     <form action = "/flights/{{ page_data.flight.flight_id }}/delete/", method="POST">
         <button>DELETE FLIGHT</button>

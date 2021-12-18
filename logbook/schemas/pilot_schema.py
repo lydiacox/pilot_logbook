@@ -15,7 +15,7 @@ class PilotSchema(ma.SQLAlchemyAutoSchema):
         the pilot's aviation reference number
     licence_class : str
         rpl, ppl, cpl or atpl
-    ariel_application_rating : bool
+    aerial_application_rating : bool
     instructor_rating : str
         grade 1, grade 2 or grade 3
     instrument_rating : bool
@@ -40,7 +40,7 @@ class PilotSchema(ma.SQLAlchemyAutoSchema):
     # add data validation
     licence_class = auto_field(required=False)
     # fix spelling of "aerial"
-    ariel_application_rating = auto_field(required=False)
+    aerial_application_rating = auto_field(required=False)
     # add data validation
     instructor_rating = auto_field(required=False)
     instrument_rating = auto_field(required=False)

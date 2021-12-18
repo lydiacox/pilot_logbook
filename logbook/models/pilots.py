@@ -13,7 +13,7 @@ class Pilot(db.Model):
         the pilot's aviation reference number
     licence_class : str
         rpl, ppl, cpl or atpl
-    ariel_application_rating : bool
+    aerial_application_rating : bool
         whether the pilot has an arial application rating
     instructor_rating : str
         grade 1, grade 2 or grade 3
@@ -36,7 +36,7 @@ class Pilot(db.Model):
     pilot_id = db.Column(db.Integer, primary_key=True)
     arn = db.Column(db.Integer(), nullable=True)
     licence_class = db.Column(db.String(10), nullable=True)
-    ariel_application_rating = db.Column(db.Boolean, nullable=True, server_default="False")
+    aerial_application_rating = db.Column(db.Boolean, nullable=True, server_default="False")
     instructor_rating = db.Column(db.String(10), nullable=True)
     instrument_rating = db.Column(db.Boolean, nullable=True, server_default="False")
     low_level_rating = db.Column(db.Boolean, nullable=True, server_default="False")

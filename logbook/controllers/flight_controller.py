@@ -35,8 +35,7 @@ def create_flight():
     new_flight.creator = current_user
     db.session.add(new_flight)
     db.session.commit()
-    # print(flight_schema.dump(new_flight))
-    return redirect(url_for("flights.get_flights"))
+    return redirect(url_for("flights.get_flight"), id=new_flight.flight_id)
 
 # An endpoint to get info for a particular flight
 @flights.route("/flights/<int:id>/", methods=["GET"])

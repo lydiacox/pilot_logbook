@@ -1,19 +1,12 @@
-I will be developing a logbook application and website.
+Welcome to the Pilot Logbook!
 
-Pilots would be able to sign up for an account, log in and add a profile photo. Their account details would include:
+Pilots can sign up for an account, log in and add a profile photo. Their account details would include:
 * First name
 * Last name
 * Email address
 * Aviation reference number
-
-They would be able to record their licences:
 * Licence type
 * Ratings
-
-As well as their medical certificates:
-* Class
-* Issuing doctor
-* Date of issue
 
 And of course they would be able to add flights to their logbook including:
 * Date
@@ -25,39 +18,33 @@ And of course they would be able to add flights to their logbook including:
 * Single or multi-engine
 * Hours
 
-https://app.asana.com/0/1201208122861820/1201208122861820
-
 ## Installing and Running Pilot Logbook
 
 ### System Requirements
 
-UN*X operating system, such as Linux or MacOS
-or
-Windows operating system with Linux Bash Shell
+* UN*X operating system, such as Linux or MacOS
 
-### Python 3.x
-Python 3 is required to run this program. If you do not have Python 3, go to https://installpython3.com to download.
+    OR
+* Windows operating system with Linux Bash Shell
+
+* Python
+* Python PIP
+* PostgreSQL
+* A web browser, e.g. Chrome, Firefox, Microsoft Edge or Safari.
 
 ### Installation
 
-Download the files to a directory on your hard drive.
-
-Open terminal shell and navigate to the directory containing this program.
-Enter the following text, followed by Enter/Return:
-chmod +x main.py
-
-<!--Oliver's description:
-If you want to run my software, clone my repo, create a new venv, activate venv, install packages you need then run the app.-->
+1. Clone this repository to a directory on your hard drive.
+2. Open the terminal shell and navigate to the directory containing this program.
+3. Create and activate a venv
+4. ```pip install -r requirements.txt```
+5. ```psql postgres```
+6. ```CREATE DATABASE logbookdb;```
+7. ```\q```
+7. ```flask db-custom create```
 
 ### Running the Program
 
-Open terminal shell and navigate to the directory containing this program.
-
-The enter the following text and press Enter/Return:
-./main.py
-
-To open the README file, enter the following text and press Enter/Return:
-./readme.md
-
-How to get things ready. flask run
-flask db-custom create
+1. Open the terminal shell and navigate to the directory containing this program.
+2. The enter the following text and press Enter/Return: ```./run.sh```. This will activate your venv and run Flask.
+3. In your browser, navigate to http://127.0.0.1:5000/

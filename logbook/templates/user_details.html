@@ -8,8 +8,19 @@
         <p>Name: {{ current_user.first_name }}  {{ current_user.last_name }}</p>
         <p>Email address: {{ current_user.email }}</p>
         <p>ARN: {{ current_user.pilot.arn }} Licence: {{ current_user.pilot.licence_class }}</p>
-        <p>Aerial Application Rating: {{ current_user.pilot.ariel_application_rating }}</p>
+        <p>Aerial Application Rating: {{ current_user.pilot.aerial_application_rating }}</p>
         <!-- Insert pilot profile details -->
+    </div>
+    <div>
+        <h3>Add flight</h3>
+        <form action="/flights/" method="POST">
+            <label for="date_began">Date began</label>
+            <input type="datetime-local" name="date_began" value = {{ flight.date_began }}>
+            <label for="take_off_landing_points">Take off & landing points began</label>
+            <input type="text" name="take_off_landing_points" value = {{ flight.take_off_landing_points }}>
+            <label for="pilot_in_command">Pilot in Command</label>
+            <input type="text" name="pilot_in_command" value = {{ flight.pilot_in_command }}>
+        </form>
     </div>
     <div>
         <h3>Update details</h3>

@@ -70,7 +70,7 @@ def upgrade():
     sa.Column('pilot_id', sa.Integer(), nullable=False),
     sa.Column('arn', sa.Integer(), nullable=True),
     sa.Column('licence_class', sa.String(length=10), nullable=True),
-    sa.Column('ariel_application_rating', sa.Boolean(), server_default='False', nullable=True),
+    sa.Column('aerial_application_rating', sa.Boolean(), server_default='False', nullable=True),
     sa.Column('instructor_rating', sa.String(length=10), nullable=True),
     sa.Column('instrument_rating', sa.Boolean(), server_default='False', nullable=True),
     sa.Column('low_level_rating', sa.Boolean(), server_default='False', nullable=True),
