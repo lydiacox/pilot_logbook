@@ -3,6 +3,7 @@ from main import db
 from models.flights import Flight
 from schemas.flight_schema import flight_schema, multi_flight_schema
 from flask_login import login_required, current_user
+from datetime import datetime
 
 flights = Blueprint('flights', __name__)
 
@@ -35,14 +36,14 @@ def create_flight():
     new_flight.creator = current_user
     db.session.add(new_flight)
     db.session.commit()
-    return redirect(url_for("flights.get_flight"), id=new_flight.flight_id)
+    return redirect(url_for("flights.get_flight", id=new_flight.flight_id))
 
 # An endpoint to get info for a particular flight
 @flights.route("/flights/<int:id>/", methods=["GET"])
 @login_required
 def get_flight(id):
     flight = Flight.query.get_or_404(id)
-    if current_user.id != flight.creator_id:
+    if current_user.user_id != flight.creator_id:
         abort(403, "You do not have permission to view this flight")
     data = {
         "page_title": "Flight Detail",
@@ -55,9 +56,11 @@ def get_flight(id):
 @login_required
 def update_flight(id):
     flight = Flight.query.filter_by(flight_id=id)
-    if current_user.id != flight.creator_id:
+    if current_user.user_id != flight.first().creator_id:
         abort(403, "You do not have permission to view this flight")
-    update_fields = flight_schema.dump(request.form)
+    parameters = request.form.to_dict()
+    parameters["date_began"]=datetime.strptime(request.form["date_began"],"%Y-%m-%dT%H:%M")
+    update_fields = flight_schema.dump(parameters)
     if update_fields:
         flight.update(update_fields)
         db.session.commit()
@@ -65,7 +68,7 @@ def update_flight(id):
         "page_title": "Flight Detail",
         "flight": flight_schema.dump(flight.first())
     }
-    return render_template("flight_detail", page_data=data)
+    return render_template("flight_detail.html", page_data=data)
 
 # A DELETE method
 @flights.route("/flights/<int:id>/delete/", methods=["POST"])

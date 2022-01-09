@@ -1,5 +1,7 @@
 from main import ma
 from models.flights import Flight
+from schemas.aircraft_schema import AircraftSchema
+from schemas.approach_schema import ApproachSchema
 from marshmallow_sqlalchemy import auto_field
 from marshmallow.validate import Length, Range
 # from datetime import datetime
@@ -98,9 +100,9 @@ class FlightSchema(ma.SQLAlchemyAutoSchema):
     aircraft_flight_id = auto_field(required=False)
     
     # references the relationship between the user and flight models
-    creator = ma.Nested("UserSchema")
-    aircraft = ma.Nested("AircraftSchema")
-    approach = ma.Nested("ApproachSchema")
+    creator = ma.Nested("UserSchema", only=("user_id",))
+    aircraft = ma.Nested("AircraftSchema", only=("registration",))
+    approach = ma.Nested("ApproachSchema", only=("approach_type",))
 
 
 flight_schema = FlightSchema()

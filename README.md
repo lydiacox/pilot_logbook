@@ -36,12 +36,13 @@ And of course they would be able to add flights to their logbook including:
 
 1. Clone this repository to a directory on your hard drive.
 2. Open the terminal shell and navigate to the directory containing this program.
-3. Create and activate a venv
-4. ```pip install -r requirements.txt```
-5. ```psql postgres```
-6. ```CREATE DATABASE logbookdb;```
-7. ```\q```
-7. ```flask db-custom create```
+3. Create a DB User and password and add to the .env file
+4. Create and activate a venv
+5. ```pip install -r requirements.txt```
+6. ```psql postgres```
+7. ```CREATE DATABASE logbookdb;```
+8. ```\q```
+9. ```flask db-custom create```
 
 ### Running the Program
 

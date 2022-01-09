@@ -15,11 +15,12 @@
         <h3>Add flight</h3>
         <form action="/flights/" method="POST">
             <label for="date_began">Date began</label>
-            <input type="datetime-local" name="date_began" value = {{ flight.date_began }}>
-            <label for="take_off_landing_points">Take off & landing points began</label>
-            <input type="text" name="take_off_landing_points" value = {{ flight.take_off_landing_points }}>
+            <input type="datetime-local" name="date_began">
+            <label for="take_off_landing_points">Take off & landing points</label>
+            <input type="text" name="take_off_landing_points">
             <label for="pilot_in_command">Pilot in Command</label>
-            <input type="text" name="pilot_in_command" value = {{ flight.pilot_in_command }}>
+            <input type="text" name="pilot_in_command">
+            <button>Submit</button>
         </form>
     </div>
     <div>
